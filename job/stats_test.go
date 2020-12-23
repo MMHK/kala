@@ -1,6 +1,7 @@
 package job
 
 import (
+	"fmt"
 	"testing"
 	"time"
 
@@ -73,4 +74,18 @@ func TestNextRunAt(t *testing.T) {
 	assert.Equal(t, j.Metadata.LastAttemptedRun.UnixNano(), kalaStat.LastAttemptedRun.UnixNano())
 	assert.NotEqual(t, j2.NextRunAt.UnixNano(), kalaStat.NextRunAt.UnixNano())
 	j.lock.RUnlock()
+}
+
+func TestJobStatFixedAdd(t *testing.T) {
+	list := make([]*JobStat,0)
+	
+	tmp := []int{1,2,3,4,5,6,7,8,9,10}
+	for _, i := range tmp {
+		list = JobStatFixedAdd(list, 5, &JobStat{
+			JobId: fmt.Sprintf("%d", i),
+		})
+		
+		assert.LessOrEqual(t, len(list), 5)
+	}
+	
 }

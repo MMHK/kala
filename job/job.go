@@ -494,7 +494,7 @@ func (j *Job) Run(cache JobCache) {
 	j.lock.Lock()
 	j.Metadata = newMeta
 	if newStat != nil {
-		j.Stats = append(j.Stats, newStat)
+		j.Stats = JobStatFixedAdd(j.Stats, 10, newStat)
 	}
 
 	// Kinda annoying and inefficient that it needs to be done this way.

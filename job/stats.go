@@ -85,3 +85,11 @@ func NewJobStat(id string) *JobStat {
 		RanAt: time.Now(),
 	}
 }
+
+func JobStatFixedAdd(src []*JobStat, sliceLength int, new *JobStat) ([]*JobStat) {
+	if len(src) < sliceLength {
+		return append(src, new)
+	}
+	
+	return append(src[1:], new)
+}
