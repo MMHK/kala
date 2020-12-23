@@ -87,9 +87,10 @@ func NewJobStat(id string) *JobStat {
 }
 
 func JobStatFixedAdd(src []*JobStat, sliceLength int, new *JobStat) ([]*JobStat) {
-	if len(src) < sliceLength {
+	currentLength := len(src)
+	if currentLength < sliceLength {
 		return append(src, new)
 	}
 	
-	return append(src[1:], new)
+	return append(src[(currentLength - sliceLength + 1):], new)
 }
